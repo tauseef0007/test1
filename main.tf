@@ -2,30 +2,25 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.36.0"
+      version = "4.65.0"
+
     }
+  }
+
+  backend "azurerm" {
+    resource_group_name = "myrg"
+    storage_account_name = "iphone"
+    container_name = "mycontainer"
+key = "my.tfstate"
   }
 }
 provider "azurerm" {
-  
-}
-# features {}
-# subscription_id = "your-subscription-id" # Replace with your Azure subscription ID
+  features {
 
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "West Europe"
-}
-
-resource "azurerm_storage_account" "example" {
-  name                     = "examplestoracc"
-  resource_group_name      = azurerm_resource_group.example.name
-  location                 = azurerm_resource_group.example.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-  tags = {
-    environment = "Terraform"
   }
+  subscription_id = "7e279a1f-92f9-40ed-af16-0d4119fce195"
 }
-
+resource "azurerm_resource_group" "prodrg" {
+  name     = "prod_rg"
+  location = "japaneast"
+}
